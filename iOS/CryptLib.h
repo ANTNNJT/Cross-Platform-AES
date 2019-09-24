@@ -38,5 +38,6 @@
 -  (NSString *) decryptCipherText:(NSString *)cipherText key:(NSString *)key iv:(NSString *)iv;
 -  (NSString *) encryptPlainTextRandomIVWithPlainText:(NSString *)plainText key:(NSString *)key;
 -  (NSString *) decryptCipherTextRandomIVWithCipherText:(NSString *)cipherText key:(NSString *)key;
+-  (NSString *)hexadecimalStringFromData:(NSData *)data;
 
 @end

@@ -208,7 +208,7 @@
     uint8_t digest[CC_SHA256_DIGEST_LENGTH]={0};
     CC_SHA256(keyData.bytes, (CC_LONG)keyData.length, digest);
     NSData *out=[NSData dataWithBytes:digest length:CC_SHA256_DIGEST_LENGTH];
-    NSString *hash=[out description];
+    NSString *hash=[self hexadecimalStringFromData:out];
     hash = [hash stringByReplacingOccurrencesOfString:@" " withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@"<" withString:@""];
     hash = [hash stringByReplacingOccurrencesOfString:@">" withString:@""];
@@ -221,6 +221,20 @@
     {
         return [hash substringToIndex:length];
     }
+}
+
+- (NSString *)hexadecimalStringFromData:(NSData *)data{
+    NSUInteger dataLength = data.length;
+    if (dataLength == 0) {
+        return nil;
+    }
+
+    const unsigned char *dataBuffer = data.bytes;
+    NSMutableString *hexString  = [NSMutableString stringWithCapacity:(dataLength * 2)];
+    for (int i = 0; i < dataLength; ++i) {
+        [hexString appendFormat:@"%02x", dataBuffer[i]];
+    }
+    return [hexString copy];
 }
 
 @end
